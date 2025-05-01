@@ -1,0 +1,54 @@
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Header from './components/layout/Header';
+import Sidebar from './components/layout/Sidebar';
+import Dashboard from './components/dashboard/Dashboard';
+import { ClassView } from './components/class/ClassView';
+import { AuthProvider } from './contexts/AuthContext';
+import { ThemeProvider } from './contexts/ThemeContext';
+import { useState } from 'react';
+import CalendarPage from './pages/CalendarPage';
+import MessagesPage from './pages/MessagesPage';
+import SettingsPage from './pages/SettingsPage';
+import HelpPage from './pages/HelpPage';
+
+function App() {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
+  
+  return (
+    <BrowserRouter>
+      <ThemeProvider>
+        <AuthProvider>
+          <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex flex-col">
+            <Header toggleSidebar={toggleSidebar} />
+            
+            <div className="flex flex-1 overflow-hidden">
+              <Sidebar isOpen={sidebarOpen} />
+              
+              <main className="flex-1 lg:ml-64 p-6 overflow-y-auto pt-20">
+                <Routes>
+                  <Route path="/" element={<Dashboard />} />
+                  <Route path="/class/:classId" element={<ClassView />} />
+                  <Route path="/calendar" element={<CalendarPage />} />
+                  <Route path="/messages" element={<MessagesPage />} />
+                  <Route path="/settings" element={<SettingsPage />} />
+                  <Route path="/help" element={<HelpPage />} />
+                </Routes>
+              </main>
+            </div>
+            
+            {sidebarOpen && (
+              <div 
+                className="fixed inset-0 bg-black/20 lg:hidden z-20"
+                onClick={toggleSidebar}
+              />
+            )}
+          </div>
+        </AuthProvider>
+      </ThemeProvider>
+    </BrowserRouter>
+  );
+}
+
+export default App;
