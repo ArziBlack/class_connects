@@ -4,6 +4,36 @@ import { Card, CardContent } from '../common/Card';
 import { Button } from '../common/Button';
 import { useAuth } from '../../contexts/AuthContext';
 
+// Define types for material items
+interface BaseMaterialItem {
+  id: string;
+  type: string;
+  name: string;
+  date: string;
+}
+
+interface DocumentItem extends BaseMaterialItem {
+  type: 'document';
+  size: string;
+}
+
+interface VideoItem extends BaseMaterialItem {
+  type: 'video';
+  duration: string;
+}
+
+interface LinkItem extends BaseMaterialItem {
+  type: 'link';
+  url: string;
+}
+
+type MaterialItem = DocumentItem | VideoItem | LinkItem;
+
+interface MaterialSection {
+  topic: string;
+  items: MaterialItem[];
+}
+
 interface ClassMaterialsProps {
   classId: string;
 }
@@ -11,9 +41,10 @@ interface ClassMaterialsProps {
 export const ClassMaterials: React.FC<ClassMaterialsProps> = ({ classId }) => {
   const { user } = useAuth();
   const isTutor = user?.role === 'tutor';
+console.log(classId);
   
   // Mock materials organized by topic
-  const materials = [
+  const materials: MaterialSection[] = [
     {
       topic: 'Introduction to Calculus',
       items: [
@@ -95,13 +126,13 @@ export const ClassMaterials: React.FC<ClassMaterialsProps> = ({ classId }) => {
                           </h4>
                           <div className="text-xs text-gray-500 dark:text-gray-400 flex items-center space-x-2">
                             <span>Added {item.date}</span>
-                            {item.size && (
+                            {'size' in item && (
                               <>
                                 <span>•</span>
                                 <span>{item.size}</span>
                               </>
                             )}
-                            {item.duration && (
+                            {'duration' in item && (
                               <>
                                 <span>•</span>
                                 <span>{item.duration}</span>

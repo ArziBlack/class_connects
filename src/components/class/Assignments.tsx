@@ -1,4 +1,3 @@
-import React from 'react';
 import { Clock, FileCheck, Plus } from 'lucide-react';
 import { Card, CardContent } from '../common/Card';
 import { Button } from '../common/Button';
@@ -11,7 +10,7 @@ interface AssignmentsProps {
 export const Assignments: React.FC<AssignmentsProps> = ({ classId }) => {
   const { user } = useAuth();
   const isTutor = user?.role === 'tutor';
-  
+console.log(classId);
   // Mock assignments data
   const assignments = [
     {

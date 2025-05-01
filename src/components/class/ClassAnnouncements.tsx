@@ -12,6 +12,7 @@ export const ClassAnnouncements: React.FC<ClassAnnouncementsProps> = ({ classId 
   const { user } = useAuth();
   const isTutor = user?.role === 'tutor';
   const [newAnnouncement, setNewAnnouncement] = useState('');
+console.log(classId);
   
   // Mock announcements data
   const announcements = [

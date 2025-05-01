@@ -10,7 +10,7 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
   const { theme, toggleTheme } = useTheme();
   
   return (
-    <header className="h-16 bg-white dark:bg-gray-900 fixed top-0 right-0 left-0 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between px-4 md:px-6">
+    <header className="h-16 bg-white dark:bg-gray-900 fixed top-0 right-0 left-0 z-50 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between px-4 md:px-6">
       <div className="flex items-center">
         <button 
           onClick={toggleSidebar}
@@ -18,7 +18,7 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
         >
           <Menu size={20} />
         </button>
-        <h1 className="ml-2 lg:ml-0 text-xl font-semibold text-gray-800 dark:text-white">EduSpace</h1>
+        <h1 className="ml-2 lg:ml-0 text-xl font-semibold text-gray-800 dark:text-white">ClassConnects</h1>
       </div>
       
       <div className="flex items-center space-x-2">

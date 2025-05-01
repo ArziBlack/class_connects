@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mail, Plus, User } from 'lucide-react';
+import { Mail, Plus } from 'lucide-react';
 import { Card, CardContent } from '../common/Card';
 import { Button } from '../common/Button';
 import { useAuth } from '../../contexts/AuthContext';
@@ -11,6 +11,7 @@ interface ClassPeopleProps {
 export const ClassPeople: React.FC<ClassPeopleProps> = ({ classId }) => {
   const { user } = useAuth();
   const isTutor = user?.role === 'tutor';
+console.log(classId);
   
   // Mock people data
   const tutors = [
