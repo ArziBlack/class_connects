@@ -3,6 +3,7 @@ import Header from './components/layout/Header';
 import Sidebar from './components/layout/Sidebar';
 import Dashboard from './components/dashboard/Dashboard';
 import { ClassView } from './components/class/ClassView';
+import { StreamPage } from "./components/class/StreamPage";
 import { AuthProvider } from './contexts/AuthContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { ClassProvider } from './contexts/ClassContext';
@@ -45,6 +46,7 @@ function App() {
                     <Routes>
                       <Route path="/" element={<Dashboard />} />
                       <Route path="/class/:classId" element={<ClassView />} />
+                      <Route path="/class/:classId/stream" element={<StreamPage />} />
                       <Route path="/calendar" element={<CalendarPage />} />
                       <Route path="/messages" element={<MessagesPage />} />
                       <Route path="/settings" element={<SettingsPage />} />
