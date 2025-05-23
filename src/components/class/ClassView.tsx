@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BookOpen, Calendar, FileText, MessageSquare, Users } from 'lucide-react';
+import { BookOpen, Calendar, FileText, MessageSquare, Users, Video, Mic } from 'lucide-react';
 import { Card, CardContent } from '../common/Card';
 import { Button } from '../common/Button';
 import { TabButton } from '../common/TabButton';
@@ -9,7 +9,7 @@ import { ClassMaterials } from './ClassMaterials';
 import { ClassPeople } from './ClassPeople';
 import { useParams } from 'react-router-dom';
 
-type Tab = 'stream' | 'assignments' | 'materials' | 'people';
+type Tab = 'stream' | 'assignments' | 'materials' | 'people' | 'video';
 
 export const ClassView: React.FC = () => {
   const { classId } = useParams<{ classId: string }>();
@@ -74,6 +74,12 @@ export const ClassView: React.FC = () => {
             icon={<Users size={18} />}
             label="People"
           />
+          <TabButton 
+            active={activeTab === 'video'} 
+            onClick={() => setActiveTab('video')}
+            icon={<Video size={18} />}
+            label="Video Stream"
+          />
         </div>
       </div>
       
@@ -84,6 +90,54 @@ export const ClassView: React.FC = () => {
             {activeTab === 'assignments' && <Assignments classId={classId} />}
             {activeTab === 'materials' && <ClassMaterials classId={classId} />}
             {activeTab === 'people' && <ClassPeople classId={classId} />}
+            {activeTab === 'video' && (
+              <div className="h-full flex flex-col gap-6">
+                <div>
+                  <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Video Stream</h2>
+                  <p className="text-gray-600 dark:text-gray-400">Join the live video session for this class.</p>
+                </div>
+
+                <div className="flex-1 flex items-center justify-center bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden relative min-h-96">
+                  <div className="absolute top-3 right-3 flex gap-2">
+                    <button className="p-2 rounded-full bg-gray-900/75 dark:bg-gray-700/75 text-white hover:bg-gray-900 dark:hover:bg-gray-700 transition-colors">
+                      <Mic className="h-5 w-5" />
+                    </button>
+                    <button className="p-2 rounded-full bg-gray-900/75 dark:bg-gray-700/75 text-white hover:bg-gray-900 dark:hover:bg-gray-700 transition-colors">
+                      <Video className="h-5 w-5" />
+                    </button>
+                  </div>
+                  <div className="absolute bottom-3 left-3 right-3 flex justify-center">
+                    <button className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors">
+                      Leave Session
+                    </button>
+                  </div>
+                  <p className="text-gray-500 dark:text-gray-400 text-center">Video streaming interface will be implemented here</p>
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                  <div className="aspect-video bg-gray-100 dark:bg-gray-800 rounded overflow-hidden relative border border-gray-200 dark:border-gray-700">
+                    <div className="absolute bottom-0 left-0 right-0 bg-gray-900/75 dark:bg-gray-700/75 text-white px-2 py-1 text-xs truncate text-center">
+                      You
+                    </div>
+                  </div>
+                  <div className="aspect-video bg-gray-100 dark:bg-gray-800 rounded overflow-hidden relative border border-gray-200 dark:border-gray-700">
+                    <div className="absolute bottom-0 left-0 right-0 bg-gray-900/75 dark:bg-gray-700/75 text-white px-2 py-1 text-xs truncate text-center">
+                      Student 1
+                    </div>
+                  </div>
+                  <div className="aspect-video bg-gray-100 dark:bg-gray-800 rounded overflow-hidden relative border border-gray-200 dark:border-gray-700">
+                    <div className="absolute bottom-0 left-0 right-0 bg-gray-900/75 dark:bg-gray-700/75 text-white px-2 py-1 text-xs truncate text-center">
+                      Student 2
+                    </div>
+                  </div>
+                  <div className="aspect-video bg-gray-100 dark:bg-gray-800 rounded overflow-hidden relative border border-gray-200 dark:border-gray-700">
+                    <div className="absolute bottom-0 left-0 right-0 bg-gray-900/75 dark:bg-gray-700/75 text-white px-2 py-1 text-xs truncate text-center">
+                      Teacher
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
           
           <div className="space-y-6">
