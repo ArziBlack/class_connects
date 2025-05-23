@@ -4,7 +4,6 @@ import {
   StreamVideoClient,
   User,
   StreamCall,
-  LivestreamPlayer,
   ParticipantView,
   useCallStateHooks,
 } from "@stream-io/video-react-sdk";
@@ -38,8 +37,8 @@ export const StreamPage: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex flex-col h-full bg-gray-50 dark:bg-gray-900">
-      <div className="p-6 flex-1 overflow-auto">
+    <div className="flex flex-col h-full bg-gray-50 dark:bg-gray-900 fixed z-100 inset-0 top-0 right-0 bottom-0 left-0">
+      <div className="px-6 flex-1 overflow-auto relative">
         <div className="border border-gray-200 dark:border-gray-800 rounded-lg overflow-hidden">
           <StreamVideo client={client}>
             <StreamCall call={call}>
@@ -47,7 +46,7 @@ export const StreamPage: React.FC = () => {
             </StreamCall>
           </StreamVideo>
         </div>
-        <div className="mt-6">
+        <div className="mt-6 absolute bottom-[60px] right-[60px]">
           <Button variant="primary" onClick={() => navigate(-1)}>
             Back to Class
           </Button>
@@ -76,21 +75,21 @@ const LivestreamView = () => {
   cam.enable();
   
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-      <div>{isLive ? `Live: ${participantCount}` : `In Backstage`}</div>
+    <div style={{ display: "flex", flexDirection: "column", gap: "4px" }} className="w-full h-full">
+      <div className="text-lg font-semibold">{isLive ? `Live: ${participantCount}` : `In Backstage`}</div>
       {firstParticipant ? (
-        <ParticipantView participant={firstParticipant} />
+        <ParticipantView participant={firstParticipant} className="w-full h-full" />
       ) : (
-        <div>The host hasn't joined yet</div>
+        <div className="w-full h-full flex items-center justify-center">The host hasn't joined yet</div>
       )}
-      <div style={{ display: "flex", gap: "4px" }}>
-        <button onClick={() => (isLive ? call.stopLive() : call.goLive())}>
+      <div style={{ display: "flex", gap: "4px" }} className="w-full">
+        <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => (isLive ? call.stopLive() : call.goLive())}>
           {isLive ? "Stop Live" : "Go Live"}
         </button>
-        <button onClick={() => cam.toggle()}>
+        <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => cam.toggle()}>
           {isCamEnabled ? "Disable camera" : "Enable camera"}
         </button>
-        <button onClick={() => mic.toggle()}>
+        <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => mic.toggle()}>
           {isMicEnabled ? "Mute Mic" : "Unmute Mic"}
         </button>
       </div>
